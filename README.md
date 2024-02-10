@@ -9,10 +9,14 @@ The data.hpp file should be in this format:
 ```c++
 namespace NAME {
 	namespace MALE {
-		static std::vector<std::string> DATA = {}
-  }
-  namespace FEMALE {
-    static std::vector<std::string> DATA = {}
-  }
+		static std::vector<std::string> DATA = {};
+  	}
+	namespace FEMALE {
+    		static std::vector<std::string> DATA = {};
+	}
+}
+
+namespace SURNAME {
+	static std::vector<std::string> DATA = {};
 }
 ```
