@@ -105,13 +105,13 @@ public:
 	}
 
 	bool IntInRange(int Number, int Min, int Max) {
-	if (Number >= Min && Number <= Max) {
-		return true;
+		if (Number >= Min && Number <= Max) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
-	else {
-		return false;
-	}
-}
 };
 
 inline CUtils* Utils = new CUtils;
