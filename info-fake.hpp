@@ -90,20 +90,21 @@ public:
 };
 
 class CInfoFake {
-private:
-	int RandomInt(int Min, int Max);
-	bool IntInRange(int Number, int Min, int Max);
 public:
 	FullName GetUniqueName(GENDER Gender);
 	IPv4Address GetUniqueIPv4Address(IPv4_CLASS Class);
 	SSN GetUniqueSSN();
 };
 
-int CInfoFake::RandomInt(int Min, int Max) {
-	return Min + (rand() % (Max - Min + 1));
-}
+inline CInfoFake* InfoFake = new CInfoFake;
 
-bool CInfoFake::IntInRange(int Number, int Min, int Max) {
+class CUtils {
+public:
+	int RandomInt(int Min, int Max) {
+		return Min + (rand() % (Max - Min + 1));
+	}
+
+	bool IntInRange(int Number, int Min, int Max) {
 	if (Number >= Min && Number <= Max) {
 		return true;
 	}
@@ -111,6 +112,9 @@ bool CInfoFake::IntInRange(int Number, int Min, int Max) {
 		return false;
 	}
 }
+};
+
+inline CUtils* Utils = new CUtils;
 
 FullName CInfoFake::GetUniqueName(GENDER Gender) {
 	srand(time(NULL));
@@ -130,13 +134,13 @@ IPv4Address CInfoFake::GetUniqueIPv4Address(IPv4_CLASS Class) {
 
 	switch (Class) {
 	case IPv4_CLASS::CLASS_A:
-		return IPv4Address{ this->RandomInt(0, 127), this->RandomInt(0, 255), this->RandomInt(0, 255), this->RandomInt(0, 255) };
+		return IPv4Address{ Utils->RandomInt(0, 127), Utils->RandomInt(0, 255), Utils->RandomInt(0, 255), Utils->RandomInt(0, 255) };
 		break;
 	case IPv4_CLASS::CLASS_B:
-		return IPv4Address{ this->RandomInt(128, 191), this->RandomInt(0, 255), this->RandomInt(0, 255), this->RandomInt(0, 255) };
+		return IPv4Address{ Utils->RandomInt(128, 191), Utils->RandomInt(0, 255), Utils->RandomInt(0, 255), Utils->RandomInt(0, 255) };
 		break;
 	case IPv4_CLASS::CLASS_C:
-		return IPv4Address{ this->RandomInt(192, 223), this->RandomInt(0, 255), this->RandomInt(0, 255), this->RandomInt(0, 255) };
+		return IPv4Address{ Utils->RandomInt(192, 223), Utils->RandomInt(0, 255), Utils->RandomInt(0, 255), Utils->RandomInt(0, 255) };
 		break;
 	}
 }
@@ -144,13 +148,11 @@ IPv4Address CInfoFake::GetUniqueIPv4Address(IPv4_CLASS Class) {
 SSN CInfoFake::GetUniqueSSN() {
 	srand(time(NULL));
 
-	int Area = this->RandomInt(100, 899);
+	int Area = Utils->RandomInt(100, 899);
 
 	if (Area == 666) {
-		Area = this->RandomInt(100, 899);
+		Area = Utils->RandomInt(100, 899);
 	}
 	
-	return SSN{ Area, this->RandomInt(10, 99), this->RandomInt(1000, 9999) };
+	return SSN{ Area, Utils->RandomInt(10, 99), Utils->RandomInt(1000, 9999) };
 }
-
-inline CInfoFake* InfoFake = new CInfoFake;
